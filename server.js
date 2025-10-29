@@ -13,7 +13,9 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
-const MONGO_URI = process.env.MONGO_URL;
+//const MONGO_URI = process.env.MONGO_URL;
+const MONGO_URI = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/product";
+
 /*
 if (!JWT_SECRET || !PAYMONGO_SECRET_KEY || !MONGO_URI) {
   console.error("❌ Missing required .env keys (JWT_SECRET, PAYMONGO_SECRET_KEY, MONGO_URL)!");
