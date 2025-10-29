@@ -14,11 +14,11 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
 const MONGO_URI = process.env.MONGO_URL;
-
+/*
 if (!JWT_SECRET || !PAYMONGO_SECRET_KEY || !MONGO_URI) {
   console.error("❌ Missing required .env keys (JWT_SECRET, PAYMONGO_SECRET_KEY, MONGO_URL)!");
   process.exit(1);
-}
+}*/
 
 const app = express();
 app.use(cors());
