@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon CoffeSystem-backend/backend/server.js",
-     "start": "node CoffeSystem-backend//backend/server.js"
+     "start": "node CoffeSystem-backend/backend/server.js"
   },
   "type": "module",
   "keywords": [],
