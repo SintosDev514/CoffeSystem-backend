@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 const adminSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: { type: String, default: "admin" },
 });
-
 
 adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -13,10 +13,8 @@ adminSchema.pre("save", async function (next) {
   next();
 });
 
-
 adminSchema.methods.comparePassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const Admin = mongoose.model("Admin", adminSchema);
-export default Admin;
+export default mongoose.model("Admin", adminSchema);

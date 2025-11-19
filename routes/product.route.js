@@ -1,6 +1,11 @@
-import express from 'express';
-import { getProducts, createProduct, updateProduct, deleteProduct } from '../controllers/product.controllers.js';
-import { verifyToken } from "../middleware/auth.js";
+import express from "express";
+import {
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "../controllers/product.controllers.js";
+import { verifyAdminToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -8,8 +13,8 @@ const router = express.Router();
 router.get("", getProducts);
 
 // POST, PUT, DELETE → admin only
-router.post("", verifyToken, createProduct);
-router.put("/:id", verifyToken, updateProduct);
-router.delete("/:id", verifyToken, deleteProduct);
+router.post("", verifyAdminToken, createProduct);
+router.put("/:id", verifyAdminToken, updateProduct);
+router.delete("/:id", verifyAdminToken, deleteProduct);
 
 export default router;

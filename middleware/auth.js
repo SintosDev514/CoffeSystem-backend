@@ -1,12 +1,14 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (req, res, next) => {
+export const verifyAdminToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
-    return res.status(401).json({ success: false, message: "No token provided" });
+    return res
+      .status(401)
+      .json({ success: false, message: "No token provided" });
   }
 
-  const token = authHeader.split(" ")[1]; 
+  const token = authHeader.split(" ")[1];
   if (!token) {
     return res.status(401).json({ success: false, message: "Token malformed" });
   }
@@ -15,12 +17,22 @@ export const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     if (decoded.role !== "admin") {
-      return res.status(403).json({ success: false, message: "Not authorized. Admin only." });
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized. Admin only." });
     }
 
-    req.user = decoded; 
+    req.user = {
+      id: decoded.id,
+      role: decoded.role,
+      email: decoded.email,
+    };
+
     next();
   } catch (err) {
-    return res.status(403).json({ success: false, message: "Invalid or expired token. Please login again." });
+    return res.status(403).json({
+      success: false,
+      message: "Invalid or expired token. Please login again.",
+    });
   }
 };
