@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
       if (!admin)
         return res
           .status(401)
-          .json({ success: false, message: "Admin not found nganiiiiiii" });
+          .json({ success: false, message: "Admin not found " });
 
       const isMatch = await admin.comparePassword(password);
       if (!isMatch)

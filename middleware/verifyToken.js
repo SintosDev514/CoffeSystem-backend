@@ -15,7 +15,8 @@ export const verifyToken = (req, res, next) => {
     if (decoded.role !== "admin")
       return res.status(403).json({ message: "Not authorized. Admin only." });
 
-    req.user = { id: decoded.id };
+    req.user = { id: decoded.id || decoded._id };
+
     next();
   } catch (err) {
     return res
