@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../server.js";
+import { JWT_SECRET } from "../config/env.js";
 import Admin from "../models/admin.model.js";
 import { sendMail } from "../mailer.js";
 
@@ -14,7 +14,8 @@ router.post("/forgot-password", async (req, res) => {
     if (!admin) return res.status(404).json({ message: "Admin not found" });
 
     const resetToken = jwt.sign({ email, role: "admin" }, JWT_SECRET, { expiresIn: "15m" });
-    const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+    const frontendUrl = process.env.FRONTEND_URL || process.env.VITE_APP_FRONTEND_URL || "http://localhost:5173";
+    const resetLink = `${frontendUrl.replace(/\/$/, "")}/reset-password?token=${resetToken}`;
 
     await sendMail(email, "BrewFlow Password Reset", `Click the link to reset your password: ${resetLink}`);
     console.log(`Password reset token for ${email}: ${resetToken}`);
